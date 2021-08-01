@@ -18,13 +18,20 @@ app = Flask(__name__)
 
 
 @app.route('/')
+@app.route("/index")
 def index():
     access_api()
-    df1 = create_df1("overview.json")
-    print(df1)
-    graphs = return_graphs(df1)
+    uk_current_cases = create_df1("overview.json")
+
+    graphs = return_graphs(uk_current_cases)
+    ids = [f"figure-{i}" for i, _ in enumerate(graphs)]
     figuresJSON = json.dumps(graphs, cls=plotly.utils.PlotlyJSONEncoder)
-    return render_template('index.html', figuresJSON=figuresJSON)
+    return render_template(
+        'index.html',
+        ids=ids,
+        figuresJSON=figuresJSON,
+        uk_current_cases=uk_current_cases
+    )
 
 
 if __name__ == '__main__':

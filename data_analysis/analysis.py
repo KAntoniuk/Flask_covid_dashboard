@@ -87,6 +87,10 @@ def create_df1(file):
             if pd.isna(df.loc[date, column]):
                 value = float(entry[column]) if entry[column] != None else 0.0
                 df.loc[date, column] = value
+        df.loc[date, 'date'] = date
+
+
+
 
     df.fillna(0.0, inplace=True)
     print(df)
@@ -166,9 +170,9 @@ def return_graphs(df):
         go.Bar(
             x=df.date.tolist(),
             y=df.cases.tolist(),
-            name="Daily cases",
+            name="UK Overview",
             showlegend=False,
-            hovertemplate="%{y:,.0f}",
+            #hovertemplate="%{y:,.0f}",
         )
     )
     #cases_graph.append(

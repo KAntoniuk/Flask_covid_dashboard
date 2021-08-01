@@ -10,4 +10,61 @@
     <h2>UK Coronavirus Situation</h2>
     <h4>Infection rates and trends</h4>
   </div>
+
+<div id="cases-graph" class="inner-grid">
+    <div class="graph" id="{{ids[0]}}"></div>
+    </div>
+
+<script type="text/javascript">
+// Look at device type before defining the config
+function setPlotlyConfig(x) {
+  if (x.matches) { // If media query matches
+  config = {responsive: true, displayModeBar: false};
+} else {
+  config = {responsive: true};
+}
+  return config;
+}
+var lessThan700 = window.matchMedia("(max-width: 700px)")
+plotly_config = setPlotlyConfig(lessThan700)
+
+// plots the figure with id
+// id much match the div id above in the html
+var figures = {{ figuresJSON | safe }};
+var ids = {{ ids | safe }};
+for (var i in figures) {
+Plotly.newPlot(ids[i],
+figures[i].data,
+figures[i].layout,
+config = plotly_config || {});
+}
+
+var figure_0 = document.getElementById('figure-0');
+var figure_1 = document.getElementById('figure-1');
+function relayout(ed, divs) {
+    if (Object.entries(ed).length === 0) {return;}
+    divs.forEach((div, i) => {
+      let x = div.layout.xaxis;
+      if (ed["xaxis.autorange"] && x.autorange) return;
+      if (x.range[0] != ed["xaxis.range[0]"] ||x.range[1] != ed["xaxis.range[1]"])
+        {
+          var update = {
+            'xaxis.range[0]': ed["xaxis.range[0]"],
+            'xaxis.range[1]': ed["xaxis.range[1]"],
+            'xaxis.autorange': ed["xaxis.autorange"],
+          };
+          Plotly.relayout(div, update);
+        }
+    });
+  }
+
+  var plots = [figure_0];
+  plots.forEach(div => {
+    div.on("plotly_relayout", function(ed) {
+      relayout(ed, divs);
+    });
+  });
+
+</script>
+
 {% endblock %}
