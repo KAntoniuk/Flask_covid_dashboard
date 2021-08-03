@@ -4,3 +4,29 @@ h1 {
     text-align: center;
     padding: 10px;
 }
+
+body, html
+{
+    margin: 0;
+    padding:0px;
+    height: 100%;
+    min-width: fit-content;
+}
+
+chart {
+    height: 100%;
+    min-width: 100%;
+}
+
+#style-sheet-float .float-container {
+    border: 3px solid #fff;
+    padding: 20px;
+}
+
+#style-sheet-float .float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+    border: 2px solid red;
+}
+

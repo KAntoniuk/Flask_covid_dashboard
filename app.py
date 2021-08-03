@@ -33,7 +33,9 @@ def index():
             y=uk_df['cases'],
             name="Daily cases",
             showlegend=False,
-            hovertemplate="%{y:,.0f}"
+            hovertemplate="%{y:,.0f}:",
+            marker_color="#34568B"
+
         )
     ]
 
@@ -56,13 +58,14 @@ def index():
                 "font_family": "Roboto",
             },
             "yaxis": {"fixedrange": True},
+
         }
     )
 
     deaths_layout = dict(
         {
             "title": {
-                "text": "Daily New Cases",
+                "text": "Daily New Deaths",
                 "font": {"family": "Roboto", "size": 18},
             },
             "margin": {
@@ -90,7 +93,8 @@ def index():
             y=uk_df['deaths'],
             name="Daily deaths",
             showlegend = False,
-            hovertemplate = "%{y:,.0f}"
+            hovertemplate = "%{y:,.0f}",
+            marker_color="#FF6F61"
 
         )
     ]
