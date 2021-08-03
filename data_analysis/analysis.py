@@ -79,7 +79,7 @@ def create_df1(file):
     enddate = parse_date(dates[-1])
 
     index = pd.date_range(startdate, enddate, freq='D')
-    df = pd.DataFrame(index=index, columns=['date', 'cases', 'hospital', 'deaths'])
+    df = pd.DataFrame(index=index, columns=['cases', 'hospital', 'deaths'])
 
     for entry in data_list:
         date = parse_date(entry['date'])
@@ -87,7 +87,7 @@ def create_df1(file):
             if pd.isna(df.loc[date, column]):
                 value = float(entry[column]) if entry[column] != None else 0.0
                 df.loc[date, column] = value
-        df.loc[date, 'date'] = date
+        #df.loc[date, 'date'] = date
 
 
 
@@ -163,50 +163,4 @@ def create_df3(file):
 
     df.fillna(0.0, inplace=True)
     return df
-
-def return_graphs(df):
-    cases_graph = []
-    cases_graph.append(
-        go.Bar(
-            x=df.date.tolist(),
-            y=df.cases.tolist(),
-            name="UK Overview",
-            showlegend=False,
-            #hovertemplate="%{y:,.0f}",
-        )
-    )
-    #cases_graph.append(
-     #   go.Scatter(
-      #      x=df.date.tolist(),
-       #     y=df["7dayCases"].tolist(),
-        #    name="7 day moving average",
-         #   showlegend=False,
-       #     hovertemplate="%{y:,.0f}",
-       # )
-    #)
-
-    cases_layout = dict(
-        {
-            "title": {
-                "text": "Daily New Cases",
-                "font": {"family": "Roboto", "size": 18},
-            },
-            "margin": {
-                "l": 40,
-                "r": 40,
-                "t": 65,
-                "b": 40,
-            },
-            "hovermode": "x unified",
-            "hoverlabel": {
-                "bgcolor": "white",
-                "font_size": 16,
-                "font_family": "Roboto",
-            },
-            "yaxis": {"fixedrange": True},
-        }
-    )
-    graphs=[]
-    graphs.append(dict(data=cases_graph, layout=cases_layout))
-    return graphs
 
