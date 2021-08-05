@@ -1,14 +1,6 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <h1>{% block title %} UK Coronavirus Situation  {% endblock %}</h1>
-
-
-
-  <!-- UK column -->
-  <div id="title-uk" class="title">
-    <h4>Infection rates and trends</h4>
-  </div>
 
 
 <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
@@ -20,13 +12,26 @@
   display: grid;
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
-  grid-gap: 8px;
+  grid-gap: 0px;
 }
 #outer-grid > div {
   background-color: #FFFFFF;
   color: white;
   font-size: 4vw;
-  padding: 8px;
+  padding: 3px;
+}
+
+#lower-grid {
+  display: grid;
+  grid-template-rows: 1fr ;
+  grid-template-columns: 1fr ;
+  grid-gap: 0px;
+}
+#lower-grid > div {
+  background-color: #FFFFFF;
+  color: white;
+  font-size: 4vw;
+  padding: 3px;
 }
 </style>
 
@@ -40,6 +45,11 @@
             Plotly.plot('bargraph1',graphs,{});
             </script>
         </div>
+         <div class="number number-one">
+      <p>Current</p>
+      <span>{{ uk_current_cases }}</span>
+      <p>7 day average</p>
+    </div>
     </div>
 
     <div>
@@ -51,6 +61,18 @@
         </div>
     </div>
 
+    <div>
+    <div class="chart" id="bargraph3">
+        <script>
+        var graphs = {{plot3 | safe}};
+        Plotly.plot('bargraph3',graphs,{});
+        </script>
+    </div>
+    </div>
+
+
 </div>
+
+
 
 {% endblock %}
