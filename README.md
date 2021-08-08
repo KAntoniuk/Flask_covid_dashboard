@@ -1,5 +1,5 @@
 # Flask_covid_dashboard
-Flask dashboard for visualizing COVID UK Public Health data using pandas and plotly. It shows up-to-date 
+Flask dashboard for visualizing COVID UK Public Health data using pandas and plotly. 
 
 ### Data collection and transformation
 API calls to Public Health England data are handled with Python SDK for the COVID-19 API. 
