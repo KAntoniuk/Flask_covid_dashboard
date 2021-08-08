@@ -8,51 +8,52 @@
 
 
 <style>
-#outer-grid {
+.wrapper {
   display: grid;
-  grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr 1fr;
-  grid-gap: 0px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+  grid-auto-rows: minmax(100px, auto);
 }
-#outer-grid > div {
-  background-color: #FFFFFF;
-  color: white;
-  font-size: 4vw;
-  padding: 3px;
+.one {
+  grid-column: 1;
+  grid-row: 1;
 }
-
-#lower-grid {
-  display: grid;
-  grid-template-rows: 1fr ;
-  grid-template-columns: 1fr ;
-  grid-gap: 0px;
+.two {
+  grid-column: 2;
+  grid-row: 1;
 }
-#lower-grid > div {
-  background-color: #FFFFFF;
-  color: white;
-  font-size: 4vw;
-  padding: 3px;
+.three {
+  grid-column: 1/3;
+  grid-row: 2;
+}
+#four {
+  grid-column: 3;
+  grid-row: 3;
+}
+#five {
+  grid-column: 2;
+  grid-row: 4;
+}
+#six {
+  grid-column: 3;
+  grid-row: 4;
+}
 }
 </style>
 
 
-<div id="outer-grid">
+<div class="wrapper">
 
-    <div>
+    <div class="one">
         <div class="chart" id="bargraph1">
             <script>
             var graphs = {{plot1 | safe}};
             Plotly.plot('bargraph1',graphs,{});
             </script>
         </div>
-         <div class="number number-one">
-      <p>Current</p>
-      <span>{{ uk_current_cases }}</span>
-      <p>7 day average</p>
-    </div>
     </div>
 
-    <div>
+    <div class="two">
         <div class="chart" id="bargraph2">
         <script>
         var graphs = {{plot2 | safe}};
@@ -61,7 +62,7 @@
         </div>
     </div>
 
-    <div>
+    <div class="three">
     <div class="chart" id="bargraph3">
         <script>
         var graphs = {{plot3 | safe}};

@@ -133,6 +133,7 @@ def index():
             name="First dose",
             showlegend=False,
             hovertemplate="%{y:,.0f}",
+            fill='tozeroy',
         )
     )
 
@@ -143,13 +144,14 @@ def index():
             name="Second dose",
             showlegend=False,
             hovertemplate="%{y:,.0f}",
+            fill='tonexty'
         )
     )
 
     vac_layout = dict(
         {
             "title": {
-                "text": "Vaccination doses",
+                "text": "Total vaccination doses",
                 "font": {"family": "Roboto", "size": 18},
             },
             "margin": {
@@ -165,8 +167,13 @@ def index():
                 "font_family": "Roboto",
             },
             "yaxis": {"fixedrange": True},
+
         }
     )
+
+
+
+
 
     cases_dict = dict(data=cases_graph, layout=cases_layout)
     deaths_dict = dict(data=death_graph, layout=deaths_layout)

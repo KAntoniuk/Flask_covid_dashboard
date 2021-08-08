@@ -1,11 +1,11 @@
 from uk_covid19 import Cov19API
-import time
 import json
 import pandas as pd
 import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
 import datetime as dt
+import time
 
 
 def access_api():
@@ -44,12 +44,12 @@ def access_api():
     api_overview = Cov19API(filters=filters1, structure=structure1)
     overview = api_overview.get_json()
 
-    time.sleep(1)
+    #time.sleep(1)
 
     api_ventilator = Cov19API(filters=filters2, structure=structure2)
     ventilator = api_ventilator.get_json()
 
-    time.sleep(1)
+    #time.sleep(1)
 
     api_age = Cov19API(filters=filters3, structure=structure3)
     age = api_age.get_json()
@@ -79,7 +79,7 @@ def create_df1(file):
     enddate = parse_date(dates[-1])
 
     index = pd.date_range(startdate, enddate, freq='D')
-    df = pd.DataFrame(index=index, columns=['cases', 'hospital', 'deaths'])
+    df = pd.DataFrame(index=index, columns=['date', 'cases', 'hospital', 'deaths'])
 
     for entry in data_list:
         date = parse_date(entry['date'])
@@ -87,8 +87,10 @@ def create_df1(file):
             if pd.isna(df.loc[date, column]):
                 value = float(entry[column]) if entry[column] != None else 0.0
                 df.loc[date, column] = value
-        #df.loc[date, 'date'] = date
+        df.loc[date, 'date'] = date
 
+    df["7dayCases"] = df.cases.rolling(window=7).mean()
+    df["7dayDeaths"] = df.deaths.rolling(window=7).mean()
 
 
 
@@ -117,7 +119,10 @@ def create_df2(file):
                 value = float(entry[column]) if entry[column] != None else 0.0
                 df.loc[date, column] = value
 
+
+
     df.fillna(0.0, inplace=True)
+
     return df
 
 
@@ -163,4 +168,12 @@ def create_df3(file):
 
     df.fillna(0.0, inplace=True)
     return df
+
+def get_current_numbers(df):
+
+    current_7dayCases, current_7dayDeaths = df.loc[
+        df.date == df.date.max(), ["7dayCases", "7dayDeaths"]
+    ].values[0]
+
+    return current_7dayCases, current_7dayDeaths
 
