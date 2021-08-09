@@ -192,6 +192,10 @@ def index():
         uk_current_deaths=f"{uk_current_deaths:,.0f}"
     )
 
+@app.route("/data")
+def about():
+    return render_template('about.html')
+
 
 if __name__ == '__main__':
     app.run()

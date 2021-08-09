@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1>{% block title %}About {% endblock %}</h1>
+    <p>
+        This dashboard shows current UK COVID situation based on the UK Government data.
+    </p>
+    <p>
+        It allows to quickly check current infection rates and cumulative vaccination doses. The data is downloaded daily from UK Public Health API and plots are produced with Plotly.
+    </p>
+
+    <h2>Other Projects</h2>
+    <p>
+        Visit my <a href="https://github.com/KAntoniuk/Flask_covid_dashboard">GitHub</a> to see other things I'm working
+        on.
+    </p>
+
+</div>
+{% endblock %}
